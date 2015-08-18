@@ -1,0 +1,68 @@
+<%= form_for @book, :html => {:multipart => true} do |f| %>
+  <% if @book.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+      <ul>
+      <% @book.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class="field form-group">
+      <%= f.label :title %><br>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+
+    <div class="field form-group">
+      <%= f.label :author %><br>
+<!--       <%= f.text_field :author, class: 'form-control' %> -->
+     <%= f.collection_select :author_id, Author.all, :id, :name, {}, class: 'form-control' %>
+
+    </div>
+    <div class="field form-group">
+      <%= f.label :editorial %><br>
+      <%= f.collection_select :editorial_id, Editorial.all, :id, :name, {}, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :original_title %><br>
+      <%= f.text_field :original_title, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :translation %><br>
+      <%= f.text_field :translation, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :edition %><br>
+      <%= f.number_field :edition, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :edition_date %><br>
+      <%= f.date_field :edition_date, class: 'form-control', id: 'fecha' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :edition_place %><br>
+      <%= f.text_field :edition_place, class: 'form-control' %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :publication_year %><br>
+      <%= f.number_field :publication_year, class: 'form-control' %>
+    </div>
+     <div class="field form-group">
+      <%= f.label :image %><br>
+      <%= f.file_field :image %>
+    </div>
+    <div class="field form-group">
+      <%= f.label :isbn %><br>
+      <%= f.text_field :isbn, class: 'form-control' %>
+    </div>
+    <div class="actions">
+      <%= f.submit (@book.new_record? ? 'Crear' : 'Actualizar'), class: 'btn btn-primary' %>
+    </div>
+  </div>
+</div>
+<% end %>
